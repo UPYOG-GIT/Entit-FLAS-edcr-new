@@ -112,7 +112,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 @RestController
-@RequestMapping(value = "/rest/dcr")
+@RequestMapping(value = "/flas/rest/dcr")
 public class RestEdcrApplicationController {
 
 	private static final String INVALID_JSON_FORMAT = "Invalid JSON Data";
