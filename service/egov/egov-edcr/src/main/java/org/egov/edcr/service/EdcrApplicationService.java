@@ -136,7 +136,7 @@ public class EdcrApplicationService {
 	private Plan callDcrProcess(EdcrApplication edcrApplication, String applicationType) {
 		Plan planDetail = new Plan();
 		planDetail = planService.process(edcrApplication, applicationType);
-		updateFile(planDetail, edcrApplication);
+//		updateFile(planDetail, edcrApplication);
 		edcrApplicationDetailService.saveAll(edcrApplication.getEdcrApplicationDetails());
 		String applcationNo = edcrApplication.getApplicationNumber();
 		flasService.saveAll(flasService.proccess(planDetail.getFlasRooms(), applcationNo));
@@ -146,7 +146,7 @@ public class EdcrApplicationService {
 	private Plan callRegularisationDcrProcess(EdcrApplication edcrApplication, String applicationType) {
 		Plan planDetail = new Plan();
 		planDetail = planService.process(edcrApplication, applicationType);
-		updateFile(planDetail, edcrApplication);
+//		updateFile(planDetail, edcrApplication);
 		edcrApplicationDetailService.saveAll(edcrApplication.getEdcrApplicationDetails());
 
 		return planDetail;
@@ -279,88 +279,106 @@ public class EdcrApplicationService {
 		return fileAsString;
 	}
 
+//	private void updateFile(Plan pl, EdcrApplication edcrApplication) {
+////		String readFile = readFile(edcrApplication.getSavedDxfFile());
+//		String filePath = edcrApplication.getSavedDxfFile().getAbsolutePath();
+////		String replace = readFile.replace("ENTITIES", "ENTITIES\n0\n" + pl.getAdditionsToDxf());
+////        String newFile = edcrApplication.getDxfFile().getOriginalFilename().replace(".dxf", "_system_scrutinized.dxf");
+//		String newFile = edcrApplication.getDxfFile().getOriginalFilename().replace(".dxf", "_system_scrutinized.pdf");
+//		// Load the source CAD file
+//		Image objImage = Image.load(filePath);
+//
+//		// Create an instance of PdfOptions
+//		PdfOptions pdfOptions = new PdfOptions();
+//
+//		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//
+//		// Export CAD to PDF
+////     		objImage.save("dwg-to-pdf.pdf", pdfOptions);
+//		objImage.save(outputStream, pdfOptions);
+//
+//		byte[] pdfBytes = outputStream.toByteArray();
+//
+//		try (PDDocument document = PDDocument.load(pdfBytes)) {
+//			byte[] modifiedPdfBytes;
+//			if (edcrApplication.getStatus().equalsIgnoreCase("Accepted")) {
+//
+//				// Get the first page of the PDF (assuming there's only one page)
+//				PDPage page = document.getPage(0);
+//
+//				// Create a new content stream to add the watermark
+//				PDPageContentStream contentStream = new PDPageContentStream(document, page,
+//						PDPageContentStream.AppendMode.APPEND, true, true);
+//
+//				PDExtendedGraphicsState graphicsState = new PDExtendedGraphicsState();
+//				graphicsState.setNonStrokingAlphaConstant(0.5f);
+//				graphicsState.setAlphaSourceFlag(true);
+//				// Set the opacity (0.5f for semi-transparent)
+//				contentStream.setGraphicsStateParameters(graphicsState);
+//				// Create a URL object
+//				URL url = new URL("https://try-digit-eks-yourname.s3.ap-south-1.amazonaws.com/watermark.png");
+//
+//				// Open a connection to the URL
+//				URLConnection connection = url.openConnection();
+//				InputStream imageStream = connection.getInputStream();
+//
+////				InputStream imageStream = EdcrApplication.class.getResourceAsStream("/watermark.png");
+//				java.awt.image.BufferedImage image1 = ImageIO.read(imageStream);
+//				// Load the watermark image (replace "watermark.png" with the path to your
+//				// watermark image)
+//				PDImageXObject image = LosslessFactory.createFromImage(document, image1);
+//				float xPos = 0f;
+//				float yPos = 0f;
+//				// Draw the watermark image on the page
+//				contentStream.drawImage(image, xPos, yPos, page.getMediaBox().getWidth(),
+//						page.getMediaBox().getHeight());
+//
+//				// Close the content stream
+//				contentStream.close();
+//
+//				// Save the modified PDF
+//				ByteArrayOutputStream modifiedPdfStream = new ByteArrayOutputStream();
+//				document.save(modifiedPdfStream);
+//				document.close();
+//
+//				// Convert the modified PDF to a byte array
+//				modifiedPdfBytes = modifiedPdfStream.toByteArray();
+//			} else {
+//				modifiedPdfBytes = outputStream.toByteArray();
+//			}
+//			File f = new File(newFile);
+//			try (FileOutputStream fos = new FileOutputStream(f)) {
+//				if (!f.exists())
+//					f.createNewFile();
+////            fos.write(replace.getBytes());
+//				fos.write(modifiedPdfBytes);
+//				fos.flush();
+//				FileStoreMapper fileStoreMapper = fileStoreService.store(f, f.getName(),
+//						edcrApplication.getDxfFile().getContentType(), FILESTORE_MODULECODE);
+//				edcrApplication.getEdcrApplicationDetails().get(0).setScrutinizedDxfFileId(fileStoreMapper);
+//			} catch (IOException e) {
+//				LOG.error("Error occurred when reading file!!!!!", e);
+//			}
+//		} catch (IOException e) {
+//			LOG.error("Error occurred when processing PDF!!!!!", e);
+//		}
+//	}
+	
 	private void updateFile(Plan pl, EdcrApplication edcrApplication) {
-//		String readFile = readFile(edcrApplication.getSavedDxfFile());
-		String filePath = edcrApplication.getSavedDxfFile().getAbsolutePath();
-//		String replace = readFile.replace("ENTITIES", "ENTITIES\n0\n" + pl.getAdditionsToDxf());
-//        String newFile = edcrApplication.getDxfFile().getOriginalFilename().replace(".dxf", "_system_scrutinized.dxf");
-		String newFile = edcrApplication.getDxfFile().getOriginalFilename().replace(".dxf", "_system_scrutinized.pdf");
-		// Load the source CAD file
-		Image objImage = Image.load(filePath);
-
-		// Create an instance of PdfOptions
-		PdfOptions pdfOptions = new PdfOptions();
-
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-		// Export CAD to PDF
-//     		objImage.save("dwg-to-pdf.pdf", pdfOptions);
-		objImage.save(outputStream, pdfOptions);
-
-		byte[] pdfBytes = outputStream.toByteArray();
-
-		try (PDDocument document = PDDocument.load(pdfBytes)) {
-			byte[] modifiedPdfBytes;
-			if (edcrApplication.getStatus().equalsIgnoreCase("Accepted")) {
-
-				// Get the first page of the PDF (assuming there's only one page)
-				PDPage page = document.getPage(0);
-
-				// Create a new content stream to add the watermark
-				PDPageContentStream contentStream = new PDPageContentStream(document, page,
-						PDPageContentStream.AppendMode.APPEND, true, true);
-
-				PDExtendedGraphicsState graphicsState = new PDExtendedGraphicsState();
-				graphicsState.setNonStrokingAlphaConstant(0.5f);
-				graphicsState.setAlphaSourceFlag(true);
-				// Set the opacity (0.5f for semi-transparent)
-				contentStream.setGraphicsStateParameters(graphicsState);
-				// Create a URL object
-				URL url = new URL("https://try-digit-eks-yourname.s3.ap-south-1.amazonaws.com/watermark.png");
-
-				// Open a connection to the URL
-				URLConnection connection = url.openConnection();
-				InputStream imageStream = connection.getInputStream();
-
-//				InputStream imageStream = EdcrApplication.class.getResourceAsStream("/watermark.png");
-				java.awt.image.BufferedImage image1 = ImageIO.read(imageStream);
-				// Load the watermark image (replace "watermark.png" with the path to your
-				// watermark image)
-				PDImageXObject image = LosslessFactory.createFromImage(document, image1);
-				float xPos = 0f;
-				float yPos = 0f;
-				// Draw the watermark image on the page
-				contentStream.drawImage(image, xPos, yPos, page.getMediaBox().getWidth(),
-						page.getMediaBox().getHeight());
-
-				// Close the content stream
-				contentStream.close();
-
-				// Save the modified PDF
-				ByteArrayOutputStream modifiedPdfStream = new ByteArrayOutputStream();
-				document.save(modifiedPdfStream);
-				document.close();
-
-				// Convert the modified PDF to a byte array
-				modifiedPdfBytes = modifiedPdfStream.toByteArray();
-			} else {
-				modifiedPdfBytes = outputStream.toByteArray();
-			}
-			File f = new File(newFile);
-			try (FileOutputStream fos = new FileOutputStream(f)) {
-				if (!f.exists())
-					f.createNewFile();
-//            fos.write(replace.getBytes());
-				fos.write(modifiedPdfBytes);
-				fos.flush();
-				FileStoreMapper fileStoreMapper = fileStoreService.store(f, f.getName(),
-						edcrApplication.getDxfFile().getContentType(), FILESTORE_MODULECODE);
-				edcrApplication.getEdcrApplicationDetails().get(0).setScrutinizedDxfFileId(fileStoreMapper);
-			} catch (IOException e) {
-				LOG.error("Error occurred when reading file!!!!!", e);
-			}
+		String readFile = readFile(edcrApplication.getSavedDxfFile());
+		String replace = readFile.replace("ENTITIES", "ENTITIES\n0\n" + pl.getAdditionsToDxf());
+		String newFile = edcrApplication.getDxfFile().getOriginalFilename().replace(".dxf", "_system_scrutinized.dxf");
+		File f = new File(newFile);
+		try (FileOutputStream fos = new FileOutputStream(f)) {
+			if (!f.exists())
+				f.createNewFile();
+			fos.write(replace.getBytes());
+			fos.flush();
+			FileStoreMapper fileStoreMapper = fileStoreService.store(f, f.getName(),
+					edcrApplication.getDxfFile().getContentType(), FILESTORE_MODULECODE);
+			edcrApplication.getEdcrApplicationDetails().get(0).setScrutinizedDxfFileId(fileStoreMapper);
 		} catch (IOException e) {
-			LOG.error("Error occurred when processing PDF!!!!!", e);
+			LOG.error("Error occurred when reading file!!!!!", e);
 		}
 	}
 
