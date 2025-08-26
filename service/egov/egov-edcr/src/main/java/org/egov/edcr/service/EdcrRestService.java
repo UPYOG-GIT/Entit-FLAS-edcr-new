@@ -1102,7 +1102,7 @@ public class EdcrRestService {
 
 	public List<Map<String, Object>> getFlasData(String applicationNumber) {
 
-		String queryString = "SELECT name, minheight, maxheight, avgheight, breadth, length, area, breathingspace, totalarea FROM state.flas_rooms WHERE applicationnumber = :applicationNumber";
+		String queryString = "SELECT name, minheight, maxheight, avgheight, breadth, length, area, breathingspace, totalarea FROM flas.flas_rooms WHERE applicationnumber = :applicationNumber";
 
 	    Query query = getCurrentSession()
 	            .createSQLQuery(queryString)

@@ -1,5 +1,4 @@
 /bin/
-egov-erp-*.properties
 /target/
 .project
 .classpath
