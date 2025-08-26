@@ -32,7 +32,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-@Table(name = "flas_rooms_1")
+@Table(name = "flas_rooms")
 @SequenceGenerator(name = FLASApplication.SEQ_EDCR_FLAS, sequenceName = FLASApplication.SEQ_EDCR_FLAS, allocationSize = 1)
 public class FLASApplication {
 	/*

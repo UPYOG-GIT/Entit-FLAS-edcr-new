@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS flas_rooms_1
+CREATE TABLE IF NOT EXISTS state.flas_rooms
 (
     id bigint PRIMARY KEY,
     applicationnumber character varying(150),

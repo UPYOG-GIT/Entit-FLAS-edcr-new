@@ -257,13 +257,13 @@ public class EdcrRestService {
 		edcrApplication = edcrApplicationService.createRestEdcr(edcrApplication);
 
 		// Code to push the data of edcr application to kafka index
-		EdcrIndexData edcrIndexData = new EdcrIndexData();
-		if (environmentSettings.getDataPush()) {
-			// Building object to be pushed
-			edcrIndexData = setEdcrIndexData(edcrApplication, edcrApplication.getEdcrApplicationDetails().get(0));
-			// call kafka topic
-			pushDataToIndexer(edcrIndexData, "edcr-create-application");
-		}
+//		EdcrIndexData edcrIndexData = new EdcrIndexData();
+//		if (environmentSettings.getDataPush()) {
+//			// Building object to be pushed
+//			edcrIndexData = setEdcrIndexData(edcrApplication, edcrApplication.getEdcrApplicationDetails().get(0));
+//			// call kafka topic
+//			pushDataToIndexer(edcrIndexData, "edcr-create-application");
+//		}
 
 		return setEdcrResponse(edcrApplication.getEdcrApplicationDetails().get(0), edcrRequest);
 	}
@@ -1102,7 +1102,7 @@ public class EdcrRestService {
 
 	public List<Map<String, Object>> getFlasData(String applicationNumber) {
 
-		String queryString = "SELECT name, minheight, maxheight, avgheight, breadth, length, area, breathingspace, totalarea FROM state.flas_rooms_1 WHERE applicationnumber = :applicationNumber";
+		String queryString = "SELECT name, minheight, maxheight, avgheight, breadth, length, area, breathingspace, totalarea FROM state.flas_rooms WHERE applicationnumber = :applicationNumber";
 
 	    Query query = getCurrentSession()
 	            .createSQLQuery(queryString)
