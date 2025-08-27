@@ -101,12 +101,12 @@
 						<webModule>
 							<groupId>org.egov.edcr</groupId>
 							<artifactId>egov-egiweb</artifactId>
-							<contextRoot>/egi</contextRoot>
+							<contextRoot>/flas/egi</contextRoot>
 						</webModule>
 						<webModule>
 							<groupId>org.egov.edcr</groupId>
 							<artifactId>egov-edcrweb</artifactId>
-							<contextRoot>/edcr</contextRoot>
+							<contextRoot>/flas/edcr</contextRoot>
 						</webModule>
 					</modules>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
