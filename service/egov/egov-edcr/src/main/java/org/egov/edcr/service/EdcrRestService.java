@@ -141,7 +141,7 @@ public class EdcrRestService {
 
 	private static Logger LOG = LogManager.getLogger(EdcrApplicationService.class);
 
-	public static final String FILE_DOWNLOAD_URL = "%s/flas/edcr/flas/rest/dcr/downloadfile";
+	public static final String FILE_DOWNLOAD_URL = "%s/flas/rest/dcr/downloadfile";
 
 	@Autowired
 	protected SecurityUtils securityUtils;

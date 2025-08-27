@@ -142,7 +142,7 @@ public class ApplicationTenantResolverFilter implements Filter {
         String requestURL = new StringBuilder().append(ApplicationThreadLocals.getDomainURL())
                 .append(customRequest.getRequestURI()).toString();
         if (requestURL.contains(tenants.get("state"))
-                && (requestURL.contains("/edcr/") && (requestURL.contains("/rest/")
+                && (requestURL.contains("/flas/") && (requestURL.contains("/rest/")
                         || requestURL.contains("/oauth/")))) {
 
             LOG.debug("All tenants from config" + tenants);

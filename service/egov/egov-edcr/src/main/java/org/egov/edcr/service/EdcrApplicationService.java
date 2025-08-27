@@ -105,7 +105,7 @@ public class EdcrApplicationService {
 		// edcrApplication.setApplicationDate(new Date("01/01/2020"));
 		edcrApplication.setApplicationDate(new Date());
 		edcrApplication.setApplicationNumber(applicationNumberGenerator.generate());
-		edcrApplication.setSavedDxfFile(saveDXF(edcrApplication));
+//		edcrApplication.setSavedDxfFile(saveDXF(edcrApplication));
 		edcrApplication.setStatus(ABORTED);
 
 		edcrApplicationRepository.save(edcrApplication);
@@ -120,7 +120,7 @@ public class EdcrApplicationService {
 
 	@Transactional
 	public EdcrApplication update(final EdcrApplication edcrApplication) {
-		edcrApplication.setSavedDxfFile(saveDXF(edcrApplication));
+//		edcrApplication.setSavedDxfFile(saveDXF(edcrApplication));
 		edcrApplication.setStatus(ABORTED);
 		Plan unsavedPlanDetail = edcrApplication.getEdcrApplicationDetails().get(0).getPlan();
 		EdcrApplication applicationRes = edcrApplicationRepository.save(edcrApplication);
